@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preinscripción 2026 - 2027 | U.E. Fe y Alegría Nueva América</title>
+    <meta name="description"
+        content="Sistema de preinscripción escolar para Educación Primaria (1° a 6° Grado) - Periodo Escolar 2026 - 2027 de la U.E. Fe y Alegría Nueva América.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="mode-representante">
+
+    <!-- Aviso Superior -->
+    <div class="top-notice-bar">
+        <i class="fa-solid fa-school"></i> U.E. FE Y ALEGRÍA "NUEVA AMÉRICA" • <strong>Proceso de Preinscripción
+            Primaria (1° a 6° Grado) • Periodo 2026 - 2027</strong>
+    </div>
+
+    <!-- Barra de Navegación -->
+    <header class="navbar" id="preinscripcionNavbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="logo_feyalegria.png" alt="Logo Fe y Alegría Nueva América" class="brand-img-logo" width="52"
+                    height="52">
+                <div class="brand-info">
+                    <span class="brand-title">FE Y ALEGRÍA</span>
+                    <span class="brand-subtitle">U.E. Nueva América • Preinscripción</span>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <!-- Botón de Modo Oscuro / Claro -->
+                <button type="button" class="btn-theme-toggle" id="btnToggleTheme" aria-label="Cambiar tema claro / oscuro" title="Cambiar tema claro / oscuro">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Indicador de Rol Activo -->
+                <div id="roleBadgeIndicator" class="role-badge-pill repre-active">
+                    <i class="fa-solid fa-user-check" id="roleBadgeIcon"></i>
+                    <span id="roleBadgeText">Perfil: Representante</span>
+                </div>
+                <button type="button" class="btn btn-outline-red btn-sm" id="btnCambiarRolModal" title="Cambiar de Perfil (Representante o Docente)">
+                    <i class="fa-solid fa-arrows-rotate"></i> Cambiar Perfil
+                </button>
+                <a href="index.html" class="btn btn-secondary" title="Volver a la Página Principal">
+                    <i class="fa-solid fa-arrow-left"></i> Inicio
+                </a>
+                <button type="button" class="btn btn-outline-red" id="btnCargarEjemplo" title="Llenar con aspirante de demostración">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Llenar Ejemplo
+                </button>
+                <button type="button" class="btn btn-secondary admin-only-btn" id="btnVerPanelDocente" title="Ver Panel de Recaudación Docente">
+                    <i class="fa-solid fa-chart-pie"></i> Panel Docente
+                </button>
+                <button type="button" class="btn btn-secondary admin-only-btn" id="btnVerSqlModal">
+                    <i class="fa-solid fa-database"></i> Ver SQL
+                </button>
+                <!-- Ver Planillas: Exclusivo para Docente -->
+                <button type="button" class="btn btn-secondary admin-only-btn" id="btnVerHistorial" title="Ver Planillas Registradas">
+                    <i class="fa-solid fa-file-lines"></i> Ver Planillas (<span id="totalRegistrosBadge">4</span>)
+                </button>
+                <button type="button" class="btn btn-secondary admin-only-btn" id="btnCerrarSesionDocente" title="Cerrar Sesión Docente" style="display: none;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Salir
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="main-preinscripcion">
+
+        <!-- ============================================================== -->
+        <!-- VISTA DOCENTE: INFORMACIÓN RECAUDADA Y CONTROL DE ADMISIONES  -->
+        <!-- ============================================================== -->
+        <div class="pre-container docente-dashboard-view" id="panelDocenteContainer">
+            <!-- Banner Docente -->
+            <div class="docente-hero-banner">
+                <div>
+                    <span class="badge-tag" style="background: #b91c1c; color: white; border: none; margin-bottom: 0.5rem; display: inline-block;">
+                        <i class="fa-solid fa-shield-halved"></i> Panel Docente / Control de Estudios
+                    </span>
+                    <h2 style="color: white; font-size: 1.65rem; margin-bottom: 0.35rem;">Información de Preinscripciones Recaudadas</h2>
+                    <p style="color: #cbd5e1; font-size: 0.92rem; margin: 0;">
+                        U.E. Fe y Alegría "Nueva América" • Cohorte Escolar 2026 - 2027 • Municipio San Francisco, Edo. Zulia
+                    </p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-primary" id="btnIrNuevaPreinscripcionDocente">
+                        <i class="fa-solid fa-plus-circle"></i> Nueva Preinscripción Presencial
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btnCerrarSesionDocenteBanner">
+                        <i class="fa-solid fa-right-from-bracket"></i> Salir de Modo Docente
+                    </button>
+                </div>
+            </div>
+
+            <!-- Métricas KPI Resumen General -->
+            <div class="docente-kpis-summary">
+                <div class="docente-kpi-card">
+                    <div class="docente-kpi-icon" style="background: #fee2e2; color: #b91c1c;">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <div class="docente-kpi-num" id="kpiTotalPreinscritos">4</div>
+                        <div class="docente-kpi-label">Total Recaudados</div>
+                    </div>
+                </div>
+                <div class="docente-kpi-card">
+                    <div class="docente-kpi-icon" style="background: #dcfce7; color: #16a34a;">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div>
+                        <div class="docente-kpi-num" id="kpiAprobadas">2</div>
+                        <div class="docente-kpi-label">Aprobadas / En Regla</div>
+                    </div>
+                </div>
+                <div class="docente-kpi-card">
+                    <div class="docente-kpi-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div>
+                        <div class="docente-kpi-num" id="kpiEnRevision">1</div>
+                        <div class="docente-kpi-label">En Revisión</div>
+                    </div>
+                </div>
+                <div class="docente-kpi-card">
+                    <div class="docente-kpi-icon" style="background: #ffe4e6; color: #e11d48;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <div class="docente-kpi-num" id="kpiDocsIncompletos">1</div>
+                        <div class="docente-kpi-label">Docs. Incompletos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Separación Grado por Grado (1er a 6to Grado Individuales) -->
+            <div class="docente-section-heading">
+                <h3 class="docente-section-title">
+                    <i class="fa-solid fa-graduation-cap" style="color: var(--fya-red);"></i>
+                    Preinscripciones Separadas Grado por Grado (Educación Primaria)
+                </h3>
+                <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
+                    <i class="fa-solid fa-hand-pointer"></i> Haz clic en un grado para filtrar automáticamente
+                </span>
+            </div>
+
+            <!-- 6 Tarjetas Individuales Grado por Grado -->
+            <div class="docente-grados-kpi-grid">
+                <!-- 1er Grado -->
+                <div class="grado-kpi-card" id="cardGrado1" onclick="filtrarDocentePorGradoPill('1er Grado')" title="Filtrar por 1er Grado">
+                    <div class="grado-kpi-badge">1°</div>
+                    <div class="grado-kpi-num" id="kpiGrado1">1</div>
+                    <div class="grado-kpi-name">1er Grado</div>
+                    <div class="grado-kpi-sub">Primaria</div>
+                </div>
+                <!-- 2do Grado -->
+                <div class="grado-kpi-card" id="cardGrado2" onclick="filtrarDocentePorGradoPill('2do Grado')" title="Filtrar por 2do Grado">
+                    <div class="grado-kpi-badge">2°</div>
+                    <div class="grado-kpi-num" id="kpiGrado2">1</div>
+                    <div class="grado-kpi-name">2do Grado</div>
+                    <div class="grado-kpi-sub">Primaria</div>
+                </div>
+                <!-- 3er Grado -->
+                <div class="grado-kpi-card" id="cardGrado3" onclick="filtrarDocentePorGradoPill('3er Grado')" title="Filtrar por 3er Grado">
+                    <div class="grado-kpi-badge">3°</div>
+                    <div class="grado-kpi-num" id="kpiGrado3">1</div>
+                    <div class="grado-kpi-name">3er Grado</div>
+                    <div class="grado-kpi-sub">Primaria</div>
+                </div>
+                <!-- 4to Grado -->
+                <div class="grado-kpi-card" id="cardGrado4" onclick="filtrarDocentePorGradoPill('4to Grado')" title="Filtrar por 4to Grado">
+                    <div class="grado-kpi-badge">4°</div>
+                    <div class="grado-kpi-num" id="kpiGrado4">0</div>
+                    <div class="grado-kpi-name">4to Grado</div>
+                    <div class="grado-kpi-sub">Primaria</div>
+                </div>
+                <!-- 5to Grado -->
+                <div class="grado-kpi-card" id="cardGrado5" onclick="filtrarDocentePorGradoPill('5to Grado')" title="Filtrar por 5to Grado">
+                    <div class="grado-kpi-badge">5°</div>
+                    <div class="grado-kpi-num" id="kpiGrado5">1</div>
+                    <div class="grado-kpi-name">5to Grado</div>
+                    <div class="grado-kpi-sub">Primaria</div>
+                </div>
+                <!-- 6to Grado -->
+                <div class="grado-kpi-card" id="cardGrado6" onclick="filtrarDocentePorGradoPill('6to Grado')" title="Filtrar por 6to Grado">
+                    <div class="grado-kpi-badge">6°</div>
+                    <div class="grado-kpi-num" id="kpiGrado6">0</div>
+                    <div class="grado-kpi-name">6to Grado</div>
+                    <div class="grado-kpi-sub">Primaria</div>
+                </div>
+            </div>
+
+            <!-- Botones Pills de Selección Rápida por Grado -->
+            <div class="docente-grade-pills">
+                <button type="button" class="grade-pill-btn active" id="pillGradoTodos" onclick="filtrarDocentePorGradoPill('')">
+                    <i class="fa-solid fa-layer-group"></i> Todos los Grados (<span id="pillCountTodos">4</span>)
+                </button>
+                <button type="button" class="grade-pill-btn" id="pillGrado1" onclick="filtrarDocentePorGradoPill('1er Grado')">
+                    1° Grado (<span id="pillCount1">1</span>)
+                </button>
+                <button type="button" class="grade-pill-btn" id="pillGrado2" onclick="filtrarDocentePorGradoPill('2do Grado')">
+                    2° Grado (<span id="pillCount2">1</span>)
+                </button>
+                <button type="button" class="grade-pill-btn" id="pillGrado3" onclick="filtrarDocentePorGradoPill('3er Grado')">
+                    3° Grado (<span id="pillCount3">1</span>)
+                </button>
+                <button type="button" class="grade-pill-btn" id="pillGrado4" onclick="filtrarDocentePorGradoPill('4to Grado')">
+                    4° Grado (<span id="pillCount4">0</span>)
+                </button>
+                <button type="button" class="grade-pill-btn" id="pillGrado5" onclick="filtrarDocentePorGradoPill('5to Grado')">
+                    5° Grado (<span id="pillCount5">1</span>)
+                </button>
+                <button type="button" class="grade-pill-btn" id="pillGrado6" onclick="filtrarDocentePorGradoPill('6to Grado')">
+                    6° Grado (<span id="pillCount6">0</span>)
+                </button>
+            </div>
+
+            <!-- Barra de Filtros -->
+            <div class="table-filter-bar">
+                <div class="table-filter-group">
+                    <div class="table-custom-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="filtroDocenteBusqueda" class="form-control" placeholder="Buscar por alumno, cédula o representante...">
+                    </div>
+                    <select id="filtroDocenteGrado" class="form-control" style="width: auto; min-width: 170px;">
+                        <option value="">Todos los Grados</option>
+                        <option value="1er Grado">1er Grado</option>
+                        <option value="2do Grado">2do Grado</option>
+                        <option value="3er Grado">3er Grado</option>
+                        <option value="4to Grado">4to Grado</option>
+                        <option value="5to Grado">5to Grado</option>
+                        <option value="6to Grado">6to Grado</option>
+                    </select>
+                    <select id="filtroDocenteEstado" class="form-control" style="width: auto; min-width: 160px;">
+                        <option value="">Todos los Estados</option>
+                        <option value="EN_REVISION">EN REVISIÓN</option>
+                        <option value="APROBADA">APROBADA</option>
+                        <option value="DOCUMENTOS_INCOMPLETOS">DOCS. INCOMPLETOS</option>
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="LISTA_DE_ESPERA">LISTA DE ESPERA</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-outline-red btn-sm" id="btnResetDocenteFiltros" title="Restablecer filtros de búsqueda">
+                        <i class="fa-solid fa-rotate-left"></i> Limpiar Filtros
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" id="btnLimpiarTodosRegistros" title="Vaciar todos los registros de preinscripción">
+                        <i class="fa-solid fa-trash-can"></i> Limpiar Todos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabla de Información Recaudada -->
+            <div class="table-responsive-container">
+                <table class="docente-table">
+                    <thead>
+                        <tr>
+                            <th>N° Folio</th>
+                            <th>Aspirante (Alumno)</th>
+                            <th>Representante Legal</th>
+                            <th>Grado Primaria</th>
+                            <th>Procedencia (Zulia)</th>
+                            <th>Recaudos</th>
+                            <th>Estado Actual</th>
+                            <th style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDocenteRegistrosBody">
+                        <!-- Generado dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- VISTA FORMULARIO: PREINSCRIPCIÓN PRIMARIA (REPRESENTANTE)      -->
+        <!-- ============================================================== -->
+        <div class="pre-container" id="preContainerForm">
+
+            <!-- Banner Alerta cuando se usa el formulario en Modo Docente -->
+            <div id="bannerModoDocenteEnForm" style="display: none; background: #fee2e2; border: 1.5px solid #fecaca; border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-solid fa-user-shield" style="font-size: 1.5rem; color: #b91c1c;"></i>
+                    <div>
+                        <strong style="color: #991b1b; font-size: 0.95rem;">Modo Operador / Docente Activo</strong>
+                        <p style="margin: 0; font-size: 0.85rem; color: #7f1d1d;">Estás registrando una solicitud presencial. El apartado de auditoría (id_user, estado y notas) se encuentra habilitado para ti en el Paso 5.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnVolverAlPanelDocente">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a Información Recaudada
+                </button>
+            </div>
+
+            <!-- Banner Informativo del Periodo 2026-2027 -->
+            <div class="pre-hero">
+                <div class="pre-hero-info">
+                    <div class="pre-badge">
+                        <i class="fa-solid fa-clipboard-check"></i> Educación Primaria (1° a 6° Grado)
+                    </div>
+                    <h2 class="pre-hero-title">Planilla de Preinscripción</h2>
+                    <p class="pre-hero-desc">
+                        Completa rigurosamente los datos del aspirante, del representante y del plantel de procedencia.
+                        Al finalizar podrás <strong>guardar la preinscripción en la base de datos MySQL</strong> y
+                        <strong>generar la planilla oficial firmada para imprimir</strong>.
+                    </p>
+                </div>
+                <div class="pre-hero-side">
+                    <span class="periodo-year-badge">2026 - 2027</span>
+                    <span class="periodo-nivel-text">Periodo Escolar Activo</span>
+                </div>
+            </div>
+
+            <!-- Stepper / Indicador de Pasos -->
+            <div class="stepper-box">
+                <div class="step-item active" data-step="1" id="stepInd1">
+                    <div class="step-circle"><i class="fa-solid fa-child"></i></div>
+                    <span class="step-label">1. Alumno</span>
+                </div>
+                <div class="step-divider"></div>
+                <div class="step-item" data-step="2" id="stepInd2">
+                    <div class="step-circle"><i class="fa-solid fa-user-shield"></i></div>
+                    <span class="step-label">2. Representante</span>
+                </div>
+                <div class="step-divider"></div>
+                <div class="step-item" data-step="3" id="stepInd3">
+                    <div class="step-circle"><i class="fa-solid fa-school"></i></div>
+                    <span class="step-label">3. Procedencia</span>
+                </div>
+                <div class="step-divider"></div>
+                <div class="step-item" data-step="4" id="stepInd4">
+                    <div class="step-circle"><i class="fa-solid fa-book"></i></div>
+                    <span class="step-label">4. Grado Primaria</span>
+                </div>
+                <div class="step-divider"></div>
+                <div class="step-item" data-step="5" id="stepInd5">
+                    <div class="step-circle"><i class="fa-solid fa-folder-open"></i></div>
+                    <span class="step-label">5. Recaudos</span>
+                </div>
+            </div>
+
+            <!-- Formulario de Preinscripción -->
+            <form id="preinscripcionForm" class="form-card" novalidate>
+
+                <!-- ============================================== -->
+                <!-- PASO 1: DATOS DEL ALUMNO (Tabla 'alumnos')     -->
+                <!-- ============================================== -->
+                <div class="form-step-content active" id="stepContent1">
+                    <div class="step-header">
+                        <div class="step-header-icon"><i class="fa-solid fa-child"></i></div>
+                        <div>
+                            <h3 class="step-header-title">Paso 1: Datos del Aspirante / Estudiante</h3>
+                        </div>
+                    </div>
+
+                    <div class="fya-info-box">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span><strong>Atención:</strong> Todos los campos marcados con asterisco (*) son de carácter
+                            obligatorio. No podrás avanzar al siguiente paso sin completarlos debidamente.</span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group col-4">
+                            <label for="alumnoTipoDoc" class="form-label">Tipo Documento *</label>
+                            <select id="alumnoTipoDoc" class="form-control" required>
+                                <option value="CE" selected>CE - Cédula Escolar</option>
+                                <option value="V">V - Cédula Venezolana</option>
+                                <option value="E">E - Cédula Extranjero</option>
+                                <option value="P">P - Pasaporte</option>
+                            </select>
+                            <span class="form-error-msg">Selecciona el tipo de documento</span>
+                        </div>
+                        <div class="form-group col-8">
+                            <label for="alumnoNumDoc" class="form-label">Número de Cédula Escolar o Identificación
+                                *</label>
+                            <input type="text" id="alumnoNumDoc" class="form-control" placeholder="Ej: 118999444"
+                                required>
+                            <span class="form-hint">Si no posee cédula de identidad, ingrese la cédula escolar
+                                asignada.</span>
+                            <span class="form-error-msg">Este campo es obligatorio</span>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="alumnoNombres" class="form-label">Nombres del Estudiante *</label>
+                            <input type="text" id="alumnoNombres" class="form-control" placeholder="Ej: Jesús David"
+                                required>
+                            <span class="form-error-msg">Ingresa los nombres del estudiante</span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="alumnoApellidos" class="form-label">Apellidos del Estudiante *</label>
+                            <input type="text" id="alumnoApellidos" class="form-control" placeholder="Ej: Gómez Blanco"
+                                required>
+                            <span class="form-error-msg">Ingresa los apellidos del estudiante</span>
+                        </div>
+
+                        <div class="form-group col-4">
+                            <label for="alumnoFechaNac" class="form-label">Fecha de Nacimiento *</label>
+                            <input type="date" id="alumnoFechaNac" class="form-control" required>
+                            <span class="form-error-msg">Indica la fecha de nacimiento</span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="alumnoGenero" class="form-label">Género *</label>
+                            <select id="alumnoGenero" class="form-control" required>
+                                <option value="" disabled selected>Seleccione género...</option>
+                                <option value="MASCULINO">Masculino</option>
+                                <option value="FEMENINO">Femenino</option>
+                            </select>
+                            <span class="form-error-msg">Selecciona el género del aspirante</span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="alumnoTipoSangre" class="form-label">Tipo de Sangre</label>
+                            <select id="alumnoTipoSangre" class="form-control">
+                                <option value="O+" selected>O Rh (+)</option>
+                                <option value="O-">O Rh (-)</option>
+                                <option value="A+">A Rh (+)</option>
+                                <option value="A-">A Rh (-)</option>
+                                <option value="B+">B Rh (+)</option>
+                                <option value="B-">B Rh (-)</option>
+                                <option value="AB+">AB Rh (+)</option>
+                                <option value="AB-">AB Rh (-)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="alumnoLugarNac" class="form-label">Lugar de Nacimiento *</label>
+                            <input type="text" id="alumnoLugarNac" class="form-control"
+                                placeholder="Ej: San Francisco / Maracaibo, Edo. Zulia" required>
+                            <span class="form-error-msg">Indica el lugar de nacimiento</span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="alumnoViveCon" class="form-label">El alumno convive con *</label>
+                            <select id="alumnoViveCon" class="form-control" required>
+                                <option value="AMBOS_PADRES" selected>Ambos Padres</option>
+                                <option value="MADRE">Solo con la Madre</option>
+                                <option value="PADRE">Solo con el Padre</option>
+                                <option value="TUTOR">Tutor Legal / Abuelos</option>
+                                <option value="OTRO">Otro Familiar</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="alumnoDireccion" class="form-label">Dirección Exacta de Habitación *</label>
+                            <textarea id="alumnoDireccion" class="form-control" rows="2"
+                                placeholder="Sector, calle, casa/edificio, número, punto de referencia..."
+                                required></textarea>
+                            <span class="form-error-msg">Ingresa la dirección de habitación del aspirante</span>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="alumnoAlergias" class="form-label">Condiciones de Salud / Alergias /
+                                Medicación</label>
+                            <input type="text" id="alumnoAlergias" class="form-control"
+                                placeholder="Ej: Ninguna / Alérgico a dipirona / Asma moderada">
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <div></div>
+                        <button type="button" class="btn btn-primary" onclick="avanzarPasoConValidacion(2)">
+                            Siguiente: Representante <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- PASO 2: REPRESENTANTE (Tabla 'representantes') -->
+                <!-- ============================================== -->
+                <div class="form-step-content" id="stepContent2">
+                    <div class="step-header">
+                        <div class="step-header-icon"><i class="fa-solid fa-user-shield"></i></div>
+                        <div>
+                            <h3 class="step-header-title">Paso 2: Datos del Representante Legal</h3>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group col-4">
+                            <label for="repreTipoDoc" class="form-label">Tipo Documento *</label>
+                            <select id="repreTipoDoc" class="form-control" required>
+                                <option value="V" selected>V - Venezolano</option>
+                                <option value="E">E - Extranjero</option>
+                                <option value="P">P - Pasaporte</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="repreNumDoc" class="form-label">Cédula de Identidad *</label>
+                            <input type="text" id="repreNumDoc" class="form-control" placeholder="Ej: 19888777"
+                                required>
+                            <span class="form-error-msg">Ingresa la cédula del representante</span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="repreParentesco" class="form-label">Parentesco con el Alumno *</label>
+                            <select id="repreParentesco" class="form-control" required>
+                                <option value="MADRE" selected>Madre</option>
+                                <option value="PADRE">Padre</option>
+                                <option value="TUTOR_LEGAL">Tutor Legal</option>
+                                <option value="ABUELO_A">Abuelo / Abuela</option>
+                                <option value="TIO_A">Tío / Tía</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="repreNombres" class="form-label">Nombres del Representante *</label>
+                            <input type="text" id="repreNombres" class="form-control" placeholder="Ej: Carmen Elena"
+                                required>
+                            <span class="form-error-msg">Ingresa los nombres del representante</span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="repreApellidos" class="form-label">Apellidos del Representante *</label>
+                            <input type="text" id="repreApellidos" class="form-control"
+                                placeholder="Ej: Blanco de Gómez" required>
+                            <span class="form-error-msg">Ingresa los apellidos del representante</span>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="repreTelefono" class="form-label">Teléfono Móvil Principal *</label>
+                            <input type="tel" id="repreTelefono" class="form-control" placeholder="Ej: 0414-9876543"
+                                required>
+                            <span class="form-error-msg">Ingresa el teléfono principal de contacto</span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="repreCorreo" class="form-label">Correo Electrónico *</label>
+                            <input type="email" id="repreCorreo" class="form-control"
+                                placeholder="Ej: carmen.blanco@correo.com" required>
+                            <span class="form-error-msg">Ingresa un correo electrónico válido</span>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="repreOcupacion" class="form-label">Profesión u Ocupación</label>
+                            <input type="text" id="repreOcupacion" class="form-control"
+                                placeholder="Ej: Comerciante, Docente, Técnico">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="repreLugarTrabajo" class="form-label">Lugar de Trabajo</label>
+                            <input type="text" id="repreLugarTrabajo" class="form-control"
+                                placeholder="Ej: Particular / Sector Centro">
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="repreDireccion" class="form-label">Dirección de Habitación del Representante
+                                *</label>
+                            <textarea id="repreDireccion" class="form-control" rows="2"
+                                placeholder="Dirección domiciliaria del representante..." required></textarea>
+                            <span class="form-error-msg">Ingresa la dirección del representante</span>
+                            <div class="mt-1">
+                                <label
+                                    style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                                    <input type="checkbox" id="chkMismaDireccion">
+                                    Copiar la misma dirección de habitación del estudiante
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-secondary" onclick="irAlPaso(1)">
+                            <i class="fa-solid fa-arrow-left"></i> Anterior
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="avanzarPasoConValidacion(3)">
+                            Siguiente: Procedencia <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- PASO 3: PROCEDENCIA ('InstAuto' / 'institutos')-->
+                <!-- ============================================== -->
+                <div class="form-step-content" id="stepContent3">
+                    <div class="step-header">
+                        <div class="step-header-icon"><i class="fa-solid fa-school"></i></div>
+                        <div>
+                            <h3 class="step-header-title">Paso 3: Escuela o Plantel de Procedencia</h3>
+                        </div>
+                    </div>
+
+                    <div class="fya-info-box">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <span>En tu modelo relacional, la entidad <strong>InstAuto</strong> se enlaza con
+                            <code>id_instituto</code> en la preinscripción. Si el alumno ingresa por primera vez a 1er
+                            grado desde educación inicial comunitaria o sin registro previo, marca la casilla
+                            correspondiente.</span>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label
+                            style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer; font-weight: 600;">
+                            <input type="checkbox" id="chkPrimerIngreso">
+                            El aspirante es de Primer Ingreso (No proviene de otra institución formal)
+                        </label>
+                    </div>
+
+                    <div id="institutoFieldsWrapper" class="form-grid">
+                        <div class="form-group col-12">
+                            <label for="institutoNombre" class="form-label">Plantel o Escuela de Procedencia *</label>
+                            <input type="text" id="institutoNombre" class="form-control"
+                                value="C.E.I. Barrio 24 de Julio"
+                                placeholder="Escribe manualmente el nombre completo de la institución o escuela de procedencia..."
+                                required>
+                            <span class="form-hint">Escribe de forma manual el nombre completo de la institución de donde proviene el aspirante.</span>
+                            <span class="form-error-msg">Ingresa el nombre del plantel de procedencia</span>
+                        </div>
+
+                        <div class="form-group col-4">
+                            <label for="institutoCodigo" class="form-label">Código Oficial / DEA (Opcional)</label>
+                            <input type="text" id="institutoCodigo" class="form-control" value="DEA-CEI-24J"
+                                placeholder="Ej: DEA-CEI-24J">
+                        </div>
+
+                        <div class="form-group col-4">
+                            <label for="institutoTipo" class="form-label">Tipo de Plantel *</label>
+                            <select id="institutoTipo" class="form-control" required>
+                                <option value="PUBLICA" selected>Pública</option>
+                                <option value="SUBVENCIONADA_FE_Y_ALEGRIA">Subvencionada Fe y Alegría</option>
+                                <option value="PRIVADA">Privada</option>
+                                <option value="OTRA">Otra</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-4">
+                            <label for="institutoCiudad" class="form-label">Municipio / Parroquia (Edo. Zulia)</label>
+                            <input type="text" id="institutoCiudad" class="form-control"
+                                value="San Francisco, Edo. Zulia" placeholder="Ej: San Francisco / Maracaibo, Zulia">
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-secondary" onclick="irAlPaso(2)">
+                            <i class="fa-solid fa-arrow-left"></i> Anterior
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="avanzarPasoConValidacion(4)">
+                            Siguiente: Grado Primaria <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- PASO 4: GRADO Y PERIODO (Exclusivo Primaria 1°-6°) -->
+                <!-- ============================================== -->
+                <div class="form-step-content" id="stepContent4">
+                    <div class="step-header">
+                        <div class="step-header-icon"><i class="fa-solid fa-book-open"></i></div>
+                        <div>
+                            <h3 class="step-header-title">Paso 4: Oferta Académica de Educación Primaria</h3>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group col-6">
+                            <label for="selectPeriodoAc" class="form-label">Periodo Escolar (Periodo_Ac) *</label>
+                            <select id="selectPeriodoAc" class="form-control font-weight-bold" required>
+                                <option value="1" data-codigo="2026-2027" selected>Periodo Escolar 2026 - 2027 (Abierto)
+                                </option>
+                            </select>
+                            <span class="form-hint">Convocatoria oficial para el año lectivo 2026-2027.</span>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label for="selectGrado" class="form-label">Grado de Primaria Solicitado (Grado) *</label>
+                            <select id="selectGrado" class="form-control" required>
+                                <option value="" disabled>Selecciona el grado...</option>
+                                <option value="1" data-gp="1" data-nombre="1er Grado de Educación Primaria" selected>1er
+                                    Grado de Educación Primaria</option>
+                                <option value="2" data-gp="2" data-nombre="2do Grado de Educación Primaria">2do Grado de
+                                    Educación Primaria</option>
+                                <option value="3" data-gp="3" data-nombre="3er Grado de Educación Primaria">3er Grado de
+                                    Educación Primaria</option>
+                                <option value="4" data-gp="4" data-nombre="4to Grado de Educación Primaria">4to Grado de
+                                    Educación Primaria</option>
+                                <option value="5" data-gp="5" data-nombre="5to Grado de Educación Primaria">5to Grado de
+                                    Educación Primaria</option>
+                                <option value="6" data-gp="6" data-nombre="6to Grado de Educación Primaria">6to Grado de
+                                    Educación Primaria</option>
+                            </select>
+                            <span class="form-error-msg">Selecciona el grado de primaria</span>
+                            <span class="form-hint">Corresponde a la clave foránea <code>id_G_Periodo</code> en la
+                                preinscripción.</span>
+                        </div>
+                    </div>
+
+                    <!-- Resumen del Nivel Seleccionado (Sin cupos) -->
+                    <div
+                        style="background: var(--fya-red-bg); border: 1.5px solid var(--fya-red-border); border-radius: var(--radius-md); padding: 1.5rem; margin-top: 1.75rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <span class="badge-tag"
+                                    style="background: var(--fya-red); color: white; border: none;">Nivel: Educación
+                                    Primaria</span>
+                                <h4 style="font-size: 1.35rem; color: var(--fya-red-dark); margin-top: 0.35rem;"
+                                    id="resumenNombreGrado">
+                                    1er Grado de Educación Primaria
+                                </h4>
+                                <p style="font-size: 0.85rem; color: #52525b; margin: 0;">Unidad Educativa Fe y Alegría
+                                    "Nueva América" • Cohorte 2026 - 2027</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span
+                                    style="font-size: 0.8rem; color: #71717a; text-transform: uppercase; font-weight: 700;">Estado
+                                    de la Oferta</span>
+                                <div style="font-size: 1.15rem; font-weight: 800; color: #15803d;">
+                                    <i class="fa-solid fa-circle-check"></i> PROCESO HABILITADO
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-secondary" onclick="irAlPaso(3)">
+                            <i class="fa-solid fa-arrow-left"></i> Anterior
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="avanzarPasoConValidacion(5)">
+                            Siguiente: Recaudos <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- PASO 5: RECAUDOS ('R_P_D') Y AUDITORÍA         -->
+                <!-- ============================================== -->
+                <div class="form-step-content" id="stepContent5">
+                    <div class="step-header">
+                        <div class="step-header-icon"><i class="fa-solid fa-folder-open"></i></div>
+                        <div>
+                            <h3 class="step-header-title">Paso 5: Consignación de Recaudos y Registro</h3>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.92rem; color: #52525b; margin-bottom: 1.25rem;">
+                        Verifica los recaudos físicos o digitales consignados por el representante ante el departamento
+                        de admisiones:
+                    </p>
+
+                    <!-- Lista de Recaudos Fe y Alegría con Carga de Archivos -->
+                    <div id="recaudosListWrapper">
+                        <!-- Doc 1: Partida de Nacimiento -->
+                        <div class="recaudo-item-card" id="recaudoCard1">
+                            <div class="recaudo-header">
+                                <div class="recaudo-title-group">
+                                    <div class="doc-icon-badge"><i class="fa-solid fa-certificate"></i></div>
+                                    <div>
+                                        <h5 style="font-size: 0.98rem; margin-bottom: 0.2rem;">
+                                            1. Partida de Nacimiento del Estudiante <span class="req-badge">Obligatorio</span>
+                                        </h5>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                            Copia legible o escaneo original (PDF, JPG o PNG)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="admin-only-section" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">Estado Docente:</label>
+                                    <select class="form-control" id="estadoDoc1" style="width: auto; font-size: 0.82rem; padding: 0.35rem 0.65rem;">
+                                        <option value="APROBADO" selected>Aprobado / Cotejado</option>
+                                        <option value="CONSIGNADO">Consignado</option>
+                                        <option value="NO_CONSIGNADO">Pendiente por Entrega</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="recaudo-upload-zone">
+                                <div class="recaudo-file-info" id="fileStatusDoc1">
+                                    <i class="fa-regular fa-file"></i>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.86rem; color: var(--text-secondary);">Sin archivo adjunto</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted);">Formatos admitidos: PDF, JPG, PNG (Máx 5MB)</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="file" id="fileUploadDoc1" class="file-recaudo-input" data-doc-id="1" accept="image/*,application/pdf" style="display: none;">
+                                    <label for="fileUploadDoc1" class="recaudo-btn-upload">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Cargar Partida
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doc 2: Cédula de Identidad Representante -->
+                        <div class="recaudo-item-card" id="recaudoCard2">
+                            <div class="recaudo-header">
+                                <div class="recaudo-title-group">
+                                    <div class="doc-icon-badge"><i class="fa-solid fa-id-card"></i></div>
+                                    <div>
+                                        <h5 style="font-size: 0.98rem; margin-bottom: 0.2rem;">
+                                            2. Cédula de Identidad del Representante Legal <span class="req-badge">Obligatorio</span>
+                                        </h5>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                            Copia ampliada y vigente del padre, madre o tutor
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="admin-only-section" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">Estado Docente:</label>
+                                    <select class="form-control" id="estadoDoc2" style="width: auto; font-size: 0.82rem; padding: 0.35rem 0.65rem;">
+                                        <option value="APROBADO" selected>Aprobado / Cotejado</option>
+                                        <option value="CONSIGNADO">Consignado</option>
+                                        <option value="NO_CONSIGNADO">Pendiente por Entrega</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="recaudo-upload-zone">
+                                <div class="recaudo-file-info" id="fileStatusDoc2">
+                                    <i class="fa-regular fa-file"></i>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.86rem; color: var(--text-secondary);">Sin archivo adjunto</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted);">Formatos admitidos: PDF, JPG, PNG (Máx 5MB)</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="file" id="fileUploadDoc2" class="file-recaudo-input" data-doc-id="2" accept="image/*,application/pdf" style="display: none;">
+                                    <label for="fileUploadDoc2" class="recaudo-btn-upload">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Cargar Cédula
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doc 3: Boleta o Informe Descriptivo -->
+                        <div class="recaudo-item-card" id="recaudoCard3">
+                            <div class="recaudo-header">
+                                <div class="recaudo-title-group">
+                                    <div class="doc-icon-badge"><i class="fa-solid fa-file-invoice"></i></div>
+                                    <div>
+                                        <h5 style="font-size: 0.98rem; margin-bottom: 0.2rem;">
+                                            3. Boleta o Informe Descriptivo del Grado Anterior <span class="req-badge">Obligatorio</span>
+                                        </h5>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                            Emitido por el plantel de procedencia (para 2° a 6° o informe inicial)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="admin-only-section" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">Estado Docente:</label>
+                                    <select class="form-control" id="estadoDoc3" style="width: auto; font-size: 0.82rem; padding: 0.35rem 0.65rem;">
+                                        <option value="CONSIGNADO" selected>Consignado</option>
+                                        <option value="APROBADO">Aprobado / Cotejado</option>
+                                        <option value="NO_CONSIGNADO">Pendiente por Entrega</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="recaudo-upload-zone">
+                                <div class="recaudo-file-info" id="fileStatusDoc3">
+                                    <i class="fa-regular fa-file"></i>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.86rem; color: var(--text-secondary);">Sin archivo adjunto</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted);">Formatos admitidos: PDF, JPG, PNG (Máx 5MB)</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="file" id="fileUploadDoc3" class="file-recaudo-input" data-doc-id="3" accept="image/*,application/pdf" style="display: none;">
+                                    <label for="fileUploadDoc3" class="recaudo-btn-upload">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Cargar Boleta
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doc 4: Fotografías Tipo Carnet -->
+                        <div class="recaudo-item-card" id="recaudoCard4">
+                            <div class="recaudo-header">
+                                <div class="recaudo-title-group">
+                                    <div class="doc-icon-badge"><i class="fa-solid fa-image"></i></div>
+                                    <div>
+                                        <h5 style="font-size: 0.98rem; margin-bottom: 0.2rem;">
+                                            4. Fotografías Tipo Carnet del Estudiante <span class="req-badge">Obligatorio</span>
+                                        </h5>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                            Foto reciente fondo blanco (Cargar versión digital para expediente)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="admin-only-section" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">Estado Docente:</label>
+                                    <select class="form-control" id="estadoDoc4" style="width: auto; font-size: 0.82rem; padding: 0.35rem 0.65rem;">
+                                        <option value="CONSIGNADO" selected>Consignado Físico / Digital</option>
+                                        <option value="APROBADO">Aprobado</option>
+                                        <option value="NO_CONSIGNADO">Pendiente</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="recaudo-upload-zone">
+                                <div class="recaudo-file-info" id="fileStatusDoc4">
+                                    <i class="fa-regular fa-image"></i>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.86rem; color: var(--text-secondary);">Sin archivo adjunto</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted);">Formatos admitidos: JPG, PNG (Máx 5MB)</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="file" id="fileUploadDoc4" class="file-recaudo-input" data-doc-id="4" accept="image/*" style="display: none;">
+                                    <label for="fileUploadDoc4" class="recaudo-btn-upload">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Cargar Foto
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doc 5: Constancia de Residencia -->
+                        <div class="recaudo-item-card" id="recaudoCard5">
+                            <div class="recaudo-header">
+                                <div class="recaudo-title-group">
+                                    <div class="doc-icon-badge"><i class="fa-solid fa-house-chimney-user"></i></div>
+                                    <div>
+                                        <h5 style="font-size: 0.98rem; margin-bottom: 0.2rem;">
+                                            5. Constancia de Residencia de la Comunidad <span class="req-badge">Obligatorio</span>
+                                        </h5>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                            Emitida por el Consejo Comunal, recibo de servicio o autoridad local
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="admin-only-section" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">Estado Docente:</label>
+                                    <select class="form-control" id="estadoDoc5" style="width: auto; font-size: 0.82rem; padding: 0.35rem 0.65rem;">
+                                        <option value="NO_CONSIGNADO" selected>Pendiente por Entrega</option>
+                                        <option value="CONSIGNADO">Consignado</option>
+                                        <option value="APROBADO">Aprobado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="recaudo-upload-zone">
+                                <div class="recaudo-file-info" id="fileStatusDoc5">
+                                    <i class="fa-regular fa-file"></i>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.86rem; color: var(--text-secondary);">Sin archivo adjunto</strong>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted);">Formatos admitidos: PDF, JPG, PNG (Máx 5MB)</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="file" id="fileUploadDoc5" class="file-recaudo-input" data-doc-id="5" accept="image/*,application/pdf" style="display: none;">
+                                    <label for="fileUploadDoc5" class="recaudo-btn-upload">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Cargar Constancia
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Apartado Administrativo y de Auditoría MySQL (id_user) -->
+                    <!-- NOTA: Visible únicamente en Modo Docente. Si el usuario ingresa como Representante, este apartado se oculta automáticamente. -->
+                    <div id="adminAuditoriaSection" class="form-grid mt-4 admin-only-section" style="border-top: 2px dashed var(--fya-red-border); padding: 1.25rem; background: var(--fya-red-bg); border-radius: var(--radius-md); margin-top: 1.5rem;">
+                        <div class="form-group col-12" style="margin-bottom: 0.5rem;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+                                <span class="badge-tag" style="background: var(--fya-red); color: white; border: none; font-size: 0.82rem;">
+                                    <i class="fa-solid fa-lock"></i> Sección Exclusiva para Docentes y Control de Estudios
+                                </span>
+                                <span style="font-size: 0.8rem; color: var(--fya-red-dark); font-weight: 600;">
+                                    Auditoría de Registro Interno (Modelo ER MySQL)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-4">
+                            <label for="selectUsuarioAuditor" class="form-label">Operador / Usuario (id_user) *</label>
+                            <select id="selectUsuarioAuditor" class="form-control" required>
+                                <option value="1" selected>Control de Estudios (Admin)</option>
+                                <option value="2">Secretaría Académica</option>
+                            </select>
+                            <span class="form-hint">Clave foránea hacia <code>usuarios.id</code>.</span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="selectEstadoPre" class="form-label">Estado de la Solicitud *</label>
+                            <select id="selectEstadoPre" class="form-control" required>
+                                <option value="EN_REVISION" selected>EN REVISIÓN</option>
+                                <option value="PENDIENTE">PENDIENTE</option>
+                                <option value="DOCUMENTOS_INCOMPLETOS">DOCUMENTOS INCOMPLETOS</option>
+                                <option value="APROBADA">APROBADA</option>
+                                <option value="LISTA_DE_ESPERA">LISTA DE ESPERA</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inputCodigoPre" class="form-label">N° de Folio / Solicitud</label>
+                            <input type="text" id="inputCodigoPre" class="form-control font-weight-bold"
+                                value="PRE-2026-0001" readonly style="background: #ffffff; font-family: monospace;">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="observacionesPre" class="form-label">Observaciones y Notas de la Solicitud</label>
+                            <textarea id="observacionesPre" class="form-control" rows="2"
+                                placeholder="Notas internas sobre el proceso de entrevista, acuerdos con el representante o condiciones particulares..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-secondary" onclick="irAlPaso(4)">
+                            <i class="fa-solid fa-arrow-left"></i> Anterior
+                        </button>
+
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline-red btn-lg" id="btnGenerarPlanilla">
+                                <i class="fa-solid fa-print"></i> Generar Planilla Oficial
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-lg" id="btnGuardarPreinscripcion">
+                                <i class="fa-solid fa-floppy-disk"></i> Enviar y Guardar en Base de Datos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </main>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: PLANILLA OFICIAL DE PREINSCRIPCIÓN (FE Y ALEGRÍA)       -->
+    <!-- ============================================================== -->
+    <div class="modal-backdrop" id="modalPlanillaBackdrop">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header no-print">
+                    <h3 class="modal-title" style="color: white; font-size: 1.15rem;">
+                        <i class="fa-solid fa-file-invoice"></i> Vista Previa de la Planilla Oficial Fe y Alegría
+                    </h3>
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button type="button" class="btn btn-primary" onclick="window.print()">
+                            <i class="fa-solid fa-print"></i> Imprimir / Guardar en PDF
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="btnCerrarPlanillaModal">
+                            <i class="fa-solid fa-xmark"></i> Cerrar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CONTENIDO IMPRIMIBLE DE LA PLANILLA OFICIAL -->
+                <div class="modal-sheet-scroll">
+                    <div class="planilla-sheet" id="printablePlanilla">
+                        <!-- Membrete Fe y Alegría Nueva América -->
+                        <div class="sheet-header">
+                            <img src="logo_feyalegria.png" alt="Logo Fe y Alegría" class="sheet-header-logo" width="85"
+                                height="85">
+                            <div class="sheet-title-center">
+                                <h3>REPÚBLICA BOLIVARIANA DE VENEZUELA</h3>
+                                <h4>MINISTERIO DEL PODER POPULAR PARA LA EDUCACIÓN</h4>
+                                <h2>UNIDAD EDUCATIVA FE Y ALEGRÍA "NUEVA AMÉRICA"</h2>
+                                <p>CÓDIGO DEA: DEA-FYA-00921 • RIF: J-00132890-4 • SAN FRANCISCO, ESTADO ZULIA</p>
+                                <div class="sheet-doc-title">
+                                    PLANILLA OFICIAL DE PREINSCRIPCIÓN - EDUCACIÓN PRIMARIA
+                                </div>
+                            </div>
+                            <div class="sheet-photo-box">
+                                <span>FOTO DEL ALUMNO TIPO CARNET</span>
+                            </div>
+                        </div>
+
+                        <!-- Metadatos de la Solicitud -->
+                        <div class="sheet-meta-bar">
+                            <div><strong>N° DE SOLICITUD:</strong> <span id="planCodigoSol"
+                                    style="font-family: monospace; font-weight: bold;">PRE-2026-0001</span></div>
+                            <div><strong>FECHA DE REGISTRO:</strong> <span id="planFechaReg">08/10/2026</span></div>
+                            <div><strong>PERIODO ESCOLAR:</strong> <span style="font-weight: bold;">2026 - 2027</span>
+                            </div>
+                            <div><strong>GRADO SOLICITADO:</strong> <span id="planGradoSol"
+                                    style="font-weight: bold; color: #b91c1c;">1er Grado de Educación Primaria</span>
+                            </div>
+                        </div>
+
+                        <!-- I. Datos del Estudiante -->
+                        <div class="sheet-section-title">I. DATOS DEL ASPIRANTE / ESTUDIANTE (ALUMNO)</div>
+                        <table class="sheet-table">
+                            <tr>
+                                <td style="width: 65%;"><strong>Nombres y Apellidos:</strong> <span
+                                        id="planAlumnoNombres">Jesús David Gómez Blanco</span></td>
+                                <td style="width: 35%;"><strong>Cédula / Identificación:</strong> <span
+                                        id="planAlumnoDoc">CE-118999444</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fecha de Nacimiento:</strong> <span
+                                        id="planAlumnoFechaNac">12/03/2020</span> (<strong>Edad:</strong> <span
+                                        id="planAlumnoEdad">6 años</span>)</td>
+                                <td><strong>Género:</strong> <span id="planAlumnoGenero">MASCULINO</span> | <strong>Tipo
+                                        Sangre:</strong> <span id="planAlumnoSangre">O+</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lugar de Nacimiento:</strong> <span id="planAlumnoLugarNac">San Francisco, Edo. Zulia</span></td>
+                                <td><strong>Convive con:</strong> <span id="planAlumnoViveCon">Ambos Padres</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Dirección de Habitación:</strong> <span
+                                        id="planAlumnoDireccion">Barrio 24 de Julio, Av. 49B entre Calles 176 y 177, San Francisco, Edo. Zulia</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Condiciones Médicas / Alergias:</strong> <span
+                                        id="planAlumnoAlergias">Ninguna conocida</span></td>
+                            </tr>
+                        </table>
+
+                        <!-- II. Datos del Representante -->
+                        <div class="sheet-section-title">II. DATOS DEL REPRESENTANTE LEGAL (REPRESENTANTE)</div>
+                        <table class="sheet-table">
+                            <tr>
+                                <td style="width: 65%;"><strong>Nombres y Apellidos:</strong> <span
+                                        id="planRepreNombres">Carmen Elena Blanco de Gómez</span></td>
+                                <td style="width: 35%;"><strong>Cédula de Identidad:</strong> <span
+                                        id="planRepreDoc">V-19888777</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Parentesco con el Alumno:</strong> <span
+                                        id="planRepreParentesco">MADRE</span></td>
+                                <td><strong>Teléfono Móvil:</strong> <span id="planRepreTelefono">0414-9876543</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Correo Electrónico:</strong> <span
+                                        id="planRepreCorreo">carmen.blanco@correo.com</span></td>
+                                <td><strong>Profesión u Ocupación:</strong> <span
+                                        id="planRepreOcupacion">Comerciante</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Dirección Residencial:</strong> <span
+                                        id="planRepreDireccion">Misma del estudiante</span></td>
+                            </tr>
+                        </table>
+
+                        <!-- III. Plantel de Procedencia (InstAuto) -->
+                        <div class="sheet-section-title">III. ESCUELA O PLANTEL DE PROCEDENCIA (InstAuto)</div>
+                        <table class="sheet-table">
+                            <tr>
+                                <td style="width: 65%;"><strong>Nombre del Plantel:</strong> <span
+                                        id="planInstNombre">C.E.I. Barrio 24 de Julio</span></td>
+                                <td style="width: 35%;"><strong>Código DEA/Plantel:</strong> <span
+                                        id="planInstCodigo">DEA-CEI-24J</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo de Institución:</strong> <span id="planInstTipo">Pública</span></td>
+                                <td><strong>Ciudad / Parroquia:</strong> <span id="planInstCiudad">San Francisco, Edo. Zulia</span></td>
+                            </tr>
+                        </table>
+
+                        <!-- IV. Control de Recaudos (R_P_D) -->
+                        <div class="sheet-section-title">IV. CONTROL DE RECAUDOS Y DOCUMENTOS CONSIGNADOS (R_P_D)</div>
+                        <table class="sheet-table">
+                            <thead>
+                                <tr style="background: #f9fafb;">
+                                    <th style="width: 10%; text-align: center;">Consignado</th>
+                                    <th style="width: 50%;">Recaudo Exigido</th>
+                                    <th style="width: 20%;">Estado en Sistema</th>
+                                    <th style="width: 20%;">Verificación</th>
+                                </tr>
+                            </thead>
+                            <tbody id="planDocTableBody">
+                                <!-- Inyectado dinámicamente -->
+                            </tbody>
+                        </table>
+
+                        <!-- Declaración Jurada y Firmas -->
+                        <div class="sheet-compromiso">
+                            <p>
+                                <strong>DECLARACIÓN Y COMPROMISO CON LA COMUNIDAD EDUCATIVA:</strong> Declaro que los
+                                datos suministrados son exactos y me comprometo a cumplir con el Ideario y las
+                                normativas de convivencia de la <strong>U.E. Fe y Alegría "Nueva América"</strong>.
+                                Conozco que la preinscripción no constituye matriculación definitiva, la cual estará
+                                sujeta a la revisión pedagógica de los recaudos.
+                            </p>
+                        </div>
+
+                        <div class="sheet-signatures">
+                            <div class="sig-box">
+                                <div class="sig-line"></div>
+                                <span class="sig-name" id="sigNombreRepre">Carmen Elena Blanco de Gómez</span>
+                                <span class="sig-role">Firma del Representante Legal<br>C.I.: <span
+                                        id="sigDocRepre">V-19888777</span></span>
+                            </div>
+                            <div class="sig-box">
+                                <div class="sig-line"></div>
+                                <span class="sig-name">Coordinación de Control de Estudios</span>
+                                <span class="sig-role">Revisado por U.E. Fe y Alegría Nueva América<br>Sello y Firma de
+                                    Recepción</span>
+                            </div>
+                        </div>
+
+                        <div class="sheet-footer">
+                            <span>U.E. Fe y Alegría "Nueva América" • Sistema de Preinscripción Primaria 2026 -
+                                2027</span>
+                            <span id="planTimestamp">08/10/2026 14:00:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: VISOR DE CONSULTAS SQL MYSQL GENERADAS EN VIVO          -->
+    <!-- ============================================================== -->
+    <div class="modal-backdrop" id="modalSqlBackdrop">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"><i class="fa-solid fa-terminal"></i> Sentencias MySQL Generadas</h3>
+                    <button type="button" class="btn-close" id="btnCerrarSqlModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: 0.88rem; color: #52525b; margin-bottom: 0.75rem;">
+                        Instrucciones SQL reales generadas en conformidad con el modelo entidad-relación y tablas de la
+                        base de datos <code>sistema_preinscripcion</code>:
+                    </p>
+                    <pre class="sql-code-block" id="sqlCodeDisplay"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCopiarSql">
+                        <i class="fa-solid fa-copy"></i> Copiar al Portapapeles
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnDescargarSql">
+                        <i class="fa-solid fa-download"></i> Descargar .sql
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: HISTORIAL DE REGISTROS DE PREINSCRIPCIÓN (VER PLANILLAS)-->
+    <!-- ============================================================== -->
+    <div class="modal-backdrop" id="modalHistorialBackdrop">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"><i class="fa-solid fa-file-lines"></i> Planillas Oficiales y Expedientes Registrados</h3>
+                    <button type="button" class="btn-close" id="btnCerrarHistorialModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Filtrador de Búsquedas en Ver Planillas -->
+                    <div class="historial-filter-bar">
+                        <div class="historial-search-input">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="filtroHistorialBusqueda" class="form-control" placeholder="Buscar por alumno, cédula, folio o representante...">
+                        </div>
+                        <select id="filtroHistorialGrado" class="form-control" style="width: auto; min-width: 170px;">
+                            <option value="">Todos los Grados (1° a 6°)</option>
+                            <option value="1er Grado">1er Grado</option>
+                            <option value="2do Grado">2do Grado</option>
+                            <option value="3er Grado">3er Grado</option>
+                            <option value="4to Grado">4to Grado</option>
+                            <option value="5to Grado">5to Grado</option>
+                            <option value="6to Grado">6to Grado</option>
+                        </select>
+                        <select id="filtroHistorialEstado" class="form-control" style="width: auto; min-width: 160px;">
+                            <option value="">Todos los Estados</option>
+                            <option value="APROBADA">APROBADA</option>
+                            <option value="EN_REVISION">EN REVISIÓN</option>
+                            <option value="DOCUMENTOS_INCOMPLETOS">DOCS. INCOMPLETOS</option>
+                            <option value="PENDIENTE">PENDIENTE</option>
+                            <option value="LISTA_DE_ESPERA">LISTA DE ESPERA</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-red btn-sm" id="btnResetHistorialFiltros">
+                            <i class="fa-solid fa-rotate-left"></i> Limpiar
+                        </button>
+                    </div>
+
+                    <div class="historial-results-count" id="historialResultsCount">
+                        Mostrando todas las solicitudes registradas
+                    </div>
+
+                    <div class="table-responsive-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Folio</th>
+                                    <th>Aspirante (Estudiante)</th>
+                                    <th>Representante Legal</th>
+                                    <th>Grado Solicitado</th>
+                                    <th>Recaudos</th>
+                                    <th>Estado Actual</th>
+                                    <th style="text-align: center;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historialTableBody">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCerrarHistorial">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: VERIFICACIÓN DE RECAUDOS DIGITALES (DOCENTE)             -->
+    <!-- ============================================================== -->
+    <div class="modal-backdrop" id="modalVerificarRecaudosBackdrop">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa-solid fa-folder-open"></i> Expediente y Verificación de Recaudos
+                    </h3>
+                    <button type="button" class="btn-close" id="btnCerrarVerificarRecaudosModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div style="background: var(--fya-red-bg); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.25rem; border: 1px solid var(--fya-red-border);">
+                        <div style="font-weight: 700; font-size: 1.05rem; color: var(--fya-red-dark);" id="modalVerifyAlumnoNom">
+                            Aspirante: Jesús David Gómez Blanco
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem;" id="modalVerifyInfoSub">
+                            Folio: PRE-2026-0001 | Grado: 1er Grado | Representante: Carmen Elena Blanco
+                        </div>
+                    </div>
+
+                    <!-- Lista de Documentos con Acciones de Verificación -->
+                    <div class="recaudos-verify-grid" id="modalVerifyDocumentosList">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCerrarVerificarRecaudos">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: PREVISUALIZADOR DE ARCHIVO / IMAGEN                     -->
+    <!-- ============================================================== -->
+    <div class="modal-backdrop" id="modalPreviewDocBackdrop">
+        <div class="modal-dialog" style="max-width: 680px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalPreviewDocTitulo">
+                        <i class="fa-solid fa-eye"></i> Vista Previa de Recaudo
+                    </h3>
+                    <button type="button" class="btn-close" id="btnCerrarPreviewDocModal">&times;</button>
+                </div>
+                <div class="modal-body" style="text-align: center; padding: 1.75rem;" id="modalPreviewDocContenido">
+                    <!-- Vista previa -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCerrarPreviewDoc">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: SELECTOR INICIAL DE PERFIL (REPRESENTANTE VS DOCENTE)   -->
+    <!-- ============================================================== -->
+    <div class="role-selector-modal active" id="modalSeleccionRol">
+        <div class="role-selector-box">
+            <div class="role-selector-top">
+                <img src="logo_feyalegria.png" alt="Logo Fe y Alegría" width="58" height="58">
+                <h2>Portal de Preinscripción Escolar 2026 - 2027</h2>
+                <p>U.E. Fe y Alegría "Nueva América" • Municipio San Francisco, Edo. Zulia</p>
+                <div style="margin-top: 0.85rem; font-size: 0.88rem; background: rgba(0,0,0,0.3); display: inline-block; padding: 0.3rem 1rem; border-radius: 999px;">
+                    ¿Cómo deseas ingresar al sistema? Selecciona tu perfil:
+                </div>
+            </div>
+            <div class="role-selector-body">
+                <div class="role-cards-grid">
+                    <!-- Tarjeta 1: Representante -->
+                    <div class="role-card repre repre-hover" id="cardElegirRepresentante">
+                        <div>
+                            <div class="role-card-icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <h3 class="role-card-title">Soy Representante</h3>
+                            <p class="role-card-desc">
+                                Padre, madre o tutor legal. Diligencia la solicitud de preinscripción de un aspirante a Educación Primaria (1° a 6° Grado). <strong>Formulario simplificado sin datos administrativos.</strong>
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-primary" style="width: 100%; background: #16a34a; border-color: #16a34a;">
+                            <i class="fa-solid fa-pen-to-square"></i> Ingresar como Representante
+                        </button>
+                    </div>
+
+                    <!-- Tarjeta 2: Docente / Administrador -->
+                    <div class="role-card docente" id="cardElegirDocente">
+                        <div>
+                            <div class="role-card-icon">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                            </div>
+                            <h3 class="role-card-title">Soy Docente / Personal</h3>
+                            <p class="role-card-desc">
+                                Personal docente, directivo o control de estudios. Requiere <strong>usuario y clave de administrador</strong> para consultar toda la información recaudada y auditar registros.
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-primary" style="width: 100%;">
+                            <i class="fa-solid fa-lock"></i> Acceso Docente (Con Clave)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: AUTENTICACIÓN ADMINISTRADOR / DOCENTE                   -->
+    <!-- ============================================================== -->
+    <div class="modal-backdrop" id="modalLoginDocente">
+        <div class="modal-dialog" style="max-width: 480px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fa-solid fa-user-shield"></i> Acceso Docente / Administrador
+                    </h3>
+                    <button type="button" class="btn-close" id="btnCerrarLoginDocente">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 1.75rem;">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <img src="logo_feyalegria.png" alt="Logo" width="55" height="55" style="border-radius: 50%; margin: 0 auto 0.5rem; border: 2px solid var(--fya-red-border);">
+                        <h4 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Control de Estudios y Admisiones</h4>
+                        <p style="font-size: 0.85rem; color: #64748b;">Ingresa tus credenciales únicas de administrador para acceder a la información recaudada.</p>
+                    </div>
+
+                    <form id="formLoginDocente">
+                        <div class="form-group mb-3">
+                            <label for="adminUsername" class="form-label">Usuario Único de Administrador *</label>
+                            <input type="text" id="adminUsername" class="form-control" placeholder="admin" required autocomplete="username">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="adminPassword" class="form-label">Contraseña de Acceso *</label>
+                            <input type="password" id="adminPassword" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+
+                        <!-- Ayuda de Credenciales del Sistema -->
+                        <div style="background: var(--fya-red-bg); border: 1px dashed var(--fya-red-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--fya-red-dark);">
+                            <i class="fa-solid fa-key"></i> <strong>Credenciales autorizadas de acceso:</strong><br>
+                            • Usuario: <code style="font-weight: bold; font-size: 0.9rem;">admin</code> &nbsp;|&nbsp; Clave: <code style="font-weight: bold; font-size: 0.9rem;">feyalegria2026</code>
+                        </div>
+
+                        <div id="loginErrorMsg" style="display: none; color: #dc2626; font-size: 0.85rem; margin-bottom: 1rem; padding: 0.6rem 0.85rem; background: #fef2f2; border-radius: var(--radius-sm); border: 1px solid #fecaca;">
+                            <i class="fa-solid fa-circle-xmark"></i> Usuario o contraseña incorrectos. Por favor verifique sus datos.
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button type="button" class="btn btn-secondary" id="btnCancelarLoginDocente" style="flex: 1;">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-primary" style="flex: 2;">
+                                <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- MODAL: CONFIRMACIÓN PARA ELIMINAR O LIMPIAR PREINSCRIPCIÓN     -->
+    <!-- ============================================================== -->
+    <div class="modal-backdrop" id="modalConfirmarEliminarBackdrop">
+        <div class="modal-dialog" style="max-width: 480px;">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);">
+                    <h3 class="modal-title" style="color: white; font-size: 1.1rem;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Confirmar Eliminación
+                    </h3>
+                    <button type="button" class="btn-close" id="btnCerrarModalEliminar">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 1.75rem; text-align: center;">
+                    <div style="width: 60px; height: 60px; background: #fee2e2; color: #dc2626; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin: 0 auto 1.25rem;">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                    <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--text-primary);" id="tituloConfirmarEliminar">
+                        ¿Eliminar preinscripción?
+                    </h4>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;" id="descConfirmarEliminar">
+                        Esta acción removerá el expediente del alumno del sistema local.
+                    </p>
+                    <div style="background: var(--fya-red-bg); border: 1px dashed var(--fya-red-border); border-radius: var(--radius-sm); padding: 0.75rem; font-size: 0.82rem; color: var(--fya-red-dark); margin-bottom: 1.5rem;" id="detalleRegistroEliminar">
+                        <!-- Detalles dinámicos del folio -->
+                    </div>
+                    <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                        <button type="button" class="btn btn-secondary" id="btnCancelarEliminar" style="flex: 1;">
+                            <i class="fa-solid fa-xmark"></i> Cancelar
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btnConfirmarEliminarAccion" style="flex: 1; background: #dc2626; border-color: #dc2626;">
+                            <i class="fa-solid fa-trash-can"></i> Sí, Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de Notificaciones -->
+    <div class="toast" id="toastNotification">
+        <div id="toastIcon" style="font-size: 1.3rem;"><i class="fa-solid fa-circle-check"></i></div>
+        <div>
+            <h5 id="toastTitle" style="font-size: 0.95rem; margin-bottom: 0.15rem;">Éxito</h5>
+            <p id="toastMessage" style="font-size: 0.82rem; color: #d4d4d8;">Operación completada.</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
